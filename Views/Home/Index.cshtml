@@ -1,0 +1,47 @@
+﻿@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Ana sayfa";
+}
+
+@if (!User.Identity?.IsAuthenticated ?? true)
+{
+    <div class="text-center py-5">
+        <h1 class="display-5 mb-3">Araç Kiralama Sistemine Hoş Geldiniz</h1>
+        <p class="lead text-muted mb-4">Devam etmek için sağ üstten giriş yapın.</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="LoginAdmin">Admin girişi</a>
+            <a class="btn btn-primary" asp-controller="Account" asp-action="LoginMusteri">Müşteri girişi</a>
+        </div>
+        <p class="small text-muted mt-4">Demo admin: <strong>admin</strong> / <strong>admin123</strong> · Demo müşteri: <strong>musteri</strong> / <strong>musteri123</strong></p>
+    </div>
+}
+else if (Model.AdminMi)
+{
+    <h1 class="display-6 mb-3">Admin paneli</h1>
+    <p class="lead">Merhaba <strong>@Model.KullaniciAdi</strong>, tüm kayıtları buradan yönetebilirsiniz.</p>
+    <div class="row g-3 mb-4">
+        <div class="col-md-3"><div class="card border-primary"><div class="card-body"><h5>Araç</h5><p class="display-6 mb-0">@Model.AracSayisi</p></div></div></div>
+        <div class="col-md-3"><div class="card border-success"><div class="card-body"><h5>Müşteri</h5><p class="display-6 mb-0">@Model.MusteriSayisi</p></div></div></div>
+        <div class="col-md-3"><div class="card border-warning"><div class="card-body"><h5>Kiralama</h5><p class="display-6 mb-0">@Model.KiralamaSayisi</p></div></div></div>
+        <div class="col-md-3"><div class="card border-info"><div class="card-body"><h5>Müsait araç</h5><p class="display-6 mb-0">@Model.MusaitAracSayisi</p></div></div></div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary" asp-controller="Araclar" asp-action="Index">Araçları yönet</a>
+        <a class="btn btn-outline-primary" asp-controller="Musteriler" asp-action="Index">Müşterileri yönet</a>
+        <a class="btn btn-outline-primary" asp-controller="Kiralamalar" asp-action="Index">Kiralamaları yönet</a>
+    </div>
+}
+else
+{
+    <h1 class="display-6 mb-3">Müşteri paneli</h1>
+    <p class="lead">Merhaba <strong>@Model.KullaniciAdi</strong>, müsait araçlara göz atıp kiralama talebi oluşturabilirsiniz.</p>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4"><div class="card border-info"><div class="card-body"><h5>Müsait araç</h5><p class="display-6 mb-0">@Model.MusaitAracSayisi</p></div></div></div>
+        <div class="col-md-4"><div class="card border-warning"><div class="card-body"><h5>Kiralamalarım</h5><p class="display-6 mb-0">@Model.BenimKiralamaSayim</p></div></div></div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary" asp-controller="Araclar" asp-action="Index">Müsait araçları gör</a>
+        <a class="btn btn-success" asp-controller="Kiralamalar" asp-action="Create">Yeni kiralama talebi</a>
+        <a class="btn btn-outline-primary" asp-controller="Kiralamalar" asp-action="Index">Kiralamalarım</a>
+    </div>
+}

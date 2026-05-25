@@ -1,0 +1,47 @@
+@model Arac
+@{
+    ViewData["Title"] = "Yeni araç";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p class="text-muted">Tüm zorunlu alanları doldurup <strong>Kaydet</strong> ile veritabanına ekleyin.</p>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Araclar" asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Marka" class="form-label"></label>
+                <input asp-for="Marka" class="form-control" placeholder="Örn: Toyota" />
+                <span asp-validation-for="Marka" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Model" class="form-label"></label>
+                <input asp-for="Model" class="form-control" placeholder="Örn: Corolla" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Plaka" class="form-label"></label>
+                <input asp-for="Plaka" class="form-control" placeholder="Örn: 34 ABC 123" />
+                <span asp-validation-for="Plaka" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GunlukUcret" class="form-label"></label>
+                <input asp-for="GunlukUcret" class="form-control" type="number" step="0.01" min="0.01"
+                       placeholder="Örn: 1200" />
+                <span asp-validation-for="GunlukUcret" class="text-danger"></span>
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="Musait" class="form-check-input" />
+                <label asp-for="Musait" class="form-check-label"></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">İptal</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

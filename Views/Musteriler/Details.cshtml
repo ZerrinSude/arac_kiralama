@@ -1,0 +1,21 @@
+@model Musteri
+@{
+    ViewData["Title"] = "Müşteri detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.AdSoyad)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(m => m.AdSoyad)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Telefon)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(m => m.Telefon)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(m => m.Email)</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.TcKimlikNo)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(m => m.TcKimlikNo)</dd>
+</dl>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Listeye dön</a>
+</div>

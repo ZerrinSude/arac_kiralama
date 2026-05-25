@@ -1,0 +1,109 @@
+﻿@* LAYOUT (Master Page): Tüm sayfalarda ortak menü, footer ve CSS/JS buradan gelir. @RenderBody() = sayfa içeriği *@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BAS gaza</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/arac_kiralama.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-uppercase" asp-controller="Home" asp-action="Index">BAS gaza</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Menü">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    @* Sol menü: giriş yapan kullanıcının rolüne göre linkler *@
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Ana sayfa</a>
+                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Araclar" asp-action="Index">Araçlar</a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Musteriler" asp-action="Index">Müşteriler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Kiralamalar" asp-action="Index">Kiralamalar</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Musteri"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Kiralamalar" asp-action="Index">Kiralamalarım</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Kiralamalar" asp-action="Create">Kiralama talebi</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    @* Sağ üst: Admin girişi / Müşteri girişi / Kayıt ol veya kullanıcı adı + Çıkış *@
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <span class="navbar-text text-white me-2">
+                                    @User.Identity.Name
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <span class="badge bg-warning text-dark">Admin</span>
+                                    }
+                                    @* 2. DEĞİŞİKLİK: Mavi buton şeklindeki "Müşteri" yazısı buradan silindi *@
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Logout">Çıkış</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="LoginAdmin">Admin girişi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="LoginMusteri">Müşteri girişi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-success btn-sm ms-1 px-3" asp-controller="Account" asp-action="Register">Kayıt ol</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="p-4 md-5 shadow rounded"
+              style="background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('/images/banner-car1.png') no-repeat;
+                     background-size: cover;
+                     background-position: center;
+                     min-height: 75vh;">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-4">
+        <div class="container py-2">
+            &copy; @DateTime.Now.Year - BAS gaza
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

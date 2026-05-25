@@ -1,0 +1,23 @@
+@model Kiralama
+@{
+    ViewData["Title"] = "Kiralama detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">Araç</dt>
+    <dd class="col-sm-10">@(Model.Arac?.ListeEtiketi ?? "-")</dd>
+    <dt class="col-sm-2">Müşteri</dt>
+    <dd class="col-sm-10">@(Model.Musteri?.ListeEtiketi ?? "-")</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.BaslangicTarihi)</dt>
+    <dd class="col-sm-10">@Model.BaslangicTarihi.ToString("d")</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.BitisTarihi)</dt>
+    <dd class="col-sm-10">@Model.BitisTarihi.ToString("d")</dd>
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.ToplamTutar)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(m => m.ToplamTutar)</dd>
+</dl>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Listeye dön</a>
+</div>

@@ -1,0 +1,59 @@
+@* Kiralama formu — toplam tutar Controller'da otomatik hesaplanır *@
+@model Kiralama
+@{
+    ViewData["Title"] = User.IsInRole("Admin") ? "Yeni kiralama" : "Kiralama talebi";
+    var musteriSabit = ViewBag.MusteriSabit == true;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            
+
+            <div class="mb-3">
+                <label asp-for="AracId" class="form-label"></label>
+                <select asp-for="AracId" class="form-select" asp-items="ViewBag.AracId"></select>
+                <span asp-validation-for="AracId" class="text-danger"></span>
+            </div>
+
+            @if (musteriSabit)
+            {
+                <input type="hidden" asp-for="MusteriId" />
+                <div class="mb-3">
+                    <label class="form-label">Müşteri</label>
+                    <input class="form-control" value="@ViewBag.MusteriAdi" readonly />
+                </div>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <label asp-for="MusteriId" class="form-label"></label>
+                    <select asp-for="MusteriId" class="form-select" asp-items="ViewBag.MusteriId"></select>
+                    <span asp-validation-for="MusteriId" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="BaslangicTarihi" class="form-label"></label>
+                <input asp-for="BaslangicTarihi" class="form-control" type="date" />
+                <span asp-validation-for="BaslangicTarihi" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BitisTarihi" class="form-label"></label>
+                <input asp-for="BitisTarihi" class="form-control" type="date" />
+                <span asp-validation-for="BitisTarihi" class="text-danger"></span>
+                <div class="form-text">Bitiş, başlangıçtan en az bir gün sonra olmalıdır.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">İptal</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

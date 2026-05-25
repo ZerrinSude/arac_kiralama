@@ -1,0 +1,25 @@
+@model Arac
+@{
+    ViewData["Title"] = "Araç detayı";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Marka)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Marka)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Model)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Model)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Plaka)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Plaka)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.GunlukUcret)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.GunlukUcret)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Musait)</dt>
+        <dd class="col-sm-10">@(Model.Musait ? "Evet" : "Hayır")</dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Listeye dön</a>
+</div>

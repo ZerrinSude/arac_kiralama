@@ -1,0 +1,41 @@
+@model Musteri
+@{
+    ViewData["Title"] = "Müşteri düzenle";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="AdSoyad" class="form-label"></label>
+                <input asp-for="AdSoyad" class="form-control" />
+                <span asp-validation-for="AdSoyad" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Telefon" class="form-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TcKimlikNo" class="form-label"></label>
+                <input asp-for="TcKimlikNo" class="form-control" maxlength="11" />
+                <span asp-validation-for="TcKimlikNo" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">İptal</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
