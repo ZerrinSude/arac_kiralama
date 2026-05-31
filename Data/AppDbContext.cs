@@ -16,12 +16,12 @@ public class AppDbContext : DbContext
     }
 
     // --- TABLOLAR (DbSet = SQL tablosunun C# karşılığı) ---
-    public DbSet<Arac> Araclar => Set<Arac>();
-    public DbSet<Musteri> Musteriler => Set<Musteri>();
-    public DbSet<Kiralama> Kiralamalar => Set<Kiralama>();
-    public DbSet<Kullanici> Kullanicilar => Set<Kullanici>();
+    public DbSet<Arac> Araclar => Set<Arac>(); // Araçlar tablosu
+    public DbSet<Musteri> Musteriler => Set<Musteri>(); // Müşteriler tablosu
+    public DbSet<Kiralama> Kiralamalar => Set<Kiralama>(); // Kiralamalar tablosu
+    public DbSet<Kullanici> Kullanicilar => Set<Kullanici>(); // Kullanıcılar tablosu
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder) // Tablolar arası ilişkiler ve kısıtlamalar
     {
         // Kullanıcı adı benzersiz olsun; müşteri silinirse kullanıcı kaydı kalabilir (SetNull)
         modelBuilder.Entity<Kullanici>(entity =>

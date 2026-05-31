@@ -128,7 +128,7 @@ public class KiralamalarController : Controller
             return false;
         }
 
-        kiralama.ToplamTutar = gunSayisi * arac.GunlukUcret;
+        kiralama.ToplamTutar = gunSayisi * arac.GunlukUcret; //hesaplamayı otomatik olarak burada hesaplatıyoruz
         ViewBag.HesaplananGun = gunSayisi;
         ViewBag.GunlukUcret = arac.GunlukUcret;
         return true;

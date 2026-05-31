@@ -15,13 +15,13 @@ namespace arac_kiralama.Controllers;
 /// </summary>
 public class AccountController : Controller
 {
-    private readonly AppDbContext _db;
+    private readonly AppDbContext _db; //Veri tabanına erişimi sağlayan AppDbContext nesnesini sınıfa enjekte ediyorsun
 
     public AccountController(AppDbContext db) => _db = db;
 
     // --- GET: Form sayfalarını göster ---
     [AllowAnonymous]
-    public IActionResult LoginAdmin() => View(new LoginViewModel());
+    public IActionResult LoginAdmin() => View(new LoginViewModel()); //Admin giriş, müşteri giriş ve kayıt sayfalarını (GET isteklerini) ekrana basar.
 
     [AllowAnonymous]
     public IActionResult LoginMusteri() => View(new LoginViewModel());
